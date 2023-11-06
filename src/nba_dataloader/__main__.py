@@ -19,7 +19,7 @@ if __name__ == '__main__':
     parser.add_argument("--location", help="Location to write the fetched data, defaults to tmp/", default="tmp/")
     args = parser.parse_args()
     endpoint = args.resource
-    paramsModule = args.param if args.params is not None else f"request_params.{endpoint}_params"
+    paramsModule = args.params if args.params is not None else f"request_params.{endpoint}_params"
     p = importlib.import_module(paramsModule)
     params = p.params
 
