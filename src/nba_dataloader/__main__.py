@@ -3,11 +3,11 @@ import importlib
 from deltalake import write_deltalake
 import ray
 
-import DataFetcher as df
+from nba_dataloader import DataFetcher as df
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        prog='client.py',
+        prog='__main__.py',
         description="Downloads data from stats.nba.com and persists on disk as delta tables",
     )
     parser.add_argument("resource", help="Will make a request to --> https://stats.nba.com/stats/<endpoint>")
