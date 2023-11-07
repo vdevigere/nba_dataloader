@@ -36,16 +36,20 @@ options:
                         The write mode
   --location LOCATION   Location to write the fetched data, defaults to tmp/
 ```
-### Fetch data from resource endpoint "CommonTeamYears"
+### Fetch data from resource endpoint
+Lets try the resource [CommonTeamYears](https://any-api.com/nba_com/nba_com/docs/_commonTeamYears/GET), which takes only one parameter LeagueId
+
 ```
 py -m nba_dataloader commonTeamYears --params my_request_params
 ```
 The ```--params``` parameter accepts a python file or module that contains a variable ```param: list[dict]``` in the above example the contents of ```my_request_params``` is
+
 ```python
 params = [{
     "LeagueID":"00"
 }]
 ```
+
 The parameters specified in the file are used to make a web service request to ```https://stats.nba.com/commonTeamYears``` with the appropriate request headers. The response json is parsed and converted into a delta table that is stored in the folder ```tmp/``` of the directory in which the script was run. This default location can be overridden using the ```---location``` command line parameter.
 
 ### Fetch data for multiple seasons from the resource "leaguedashplayerstats"
@@ -115,5 +119,4 @@ params = [
 }
 {},{}..
 ]
-
 ```
