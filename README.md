@@ -69,7 +69,7 @@ seasons = {'1996-97', '1997-98', '1998-99', '1999-00', '2000-01', '2001-02', '20
 params = map(lambda season: {'Season': season} | base_params_dict, seasons)
 ```
 
-In the above code params is an array of dicts constructed by adding a new attribute 'Season:<value>' to the ```base_params_dict``` for each of the seasons and building a list of dicts
+In the above code params is a list of dicts constructed by adding a new attribute 'Season:<value>' to the ```base_params_dict``` for each of the seasons and building a list of dicts
 
 The resulting value of ```params``` is
 ```python
