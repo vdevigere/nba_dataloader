@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nba_dataloader"
-version = "1.0.3"
+version = "1.0.4"
 authors = [
   { name="Viddu Devigere", email="vdevigere@gmail.com" },
 ]
