@@ -39,3 +39,5 @@ if __name__ == '__main__':
             else:
                 write_deltalake(args.location + key, table, mode=args.mode, partition_by=args.partition_by)
                 print(table)
+
+    ray.shutdown()
