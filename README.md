@@ -15,6 +15,7 @@ pip install nba-dataloader
 
 
 ## Usage
+Also see [notebooks](notebooks/) for more examples
 ### Show help
 ```
 py -m nba_dataloader --help
