@@ -4,7 +4,7 @@ from pathlib import Path
 
 from deltalake import write_deltalake
 import ray
-import DataFetcher as df
+from nba_dataloader import DataFetcher as df
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
