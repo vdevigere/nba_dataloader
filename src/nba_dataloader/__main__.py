@@ -1,9 +1,10 @@
 import argparse
 import importlib
+from pathlib import Path
+
 from deltalake import write_deltalake
 import ray
-
-from nba_dataloader import DataFetcher as df
+import DataFetcher as df
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
@@ -32,12 +33,17 @@ if __name__ == '__main__':
         refs.append(df.fetch_data_parallel.remote(endpoint, param))
 
     tableDicts = ray.get(refs)
+    ray.shutdown()
+
     for tableDict in tableDicts:
+        # write raw resp to args.location + "/raw"
+        rawPath = Path(fr"{args.location}/raw/{tableDict['HASH']}")
+        rawPath.parent.mkdir(exist_ok=True, parents=True)
+        rawPath.write_text(tableDict['RAW'])
         for key, table in tableDict.items():
-            if key == 'STATUS':
+            if key == 'STATUS' or key == 'HASH' or key == 'RAW':
                 continue
             else:
-                write_deltalake(args.location + key, table, mode=args.mode, partition_by=args.partition_by)
+                deltaPath = Path(fr"{args.location}/{key}")
+                write_deltalake(deltaPath, table, mode=args.mode, partition_by=args.partition_by)
                 print(table)
-
-    ray.shutdown()
