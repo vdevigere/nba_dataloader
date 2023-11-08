@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nba_dataloader"
-version = "1.0.2"
+version = "1.0.3"
 authors = [
   { name="Viddu Devigere", email="vdevigere@gmail.com" },
 ]
@@ -26,3 +26,5 @@ dependencies =[
 [project.urls]
 "Homepage" = "https://github.com/vdevigere/nba_dataloader"
 "Bug Tracker" = "https://github.com/vdevigere/nba_dataloader/issues"
+"Release Notes" = "https://github.com/vdevigere/nba_dataloader/releases"
+"PyPi" = "https://pypi.org/project/nba-dataloader/"
