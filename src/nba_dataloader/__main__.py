@@ -1,7 +1,10 @@
 import argparse
 import importlib
+from functools import reduce
 from pathlib import Path
 
+import pandas
+import pandas as pd
 from deltalake import write_deltalake
 import ray
 from nba_dataloader import DataFetcher as df
@@ -35,15 +38,10 @@ if __name__ == '__main__':
     tableDicts = ray.get(refs)
     ray.shutdown()
 
-    for tableDict in tableDicts:
-        # write raw resp to args.location + "/raw"
-        rawPath = Path(fr"{args.location}/raw/{tableDict['HASH']}")
-        rawPath.parent.mkdir(exist_ok=True, parents=True)
-        rawPath.write_text(tableDict['RAW'])
-        for key, table in tableDict.items():
-            if key == 'STATUS' or key == 'HASH' or key == 'RAW':
-                continue
-            else:
-                deltaPath = Path(fr"{args.location}/{key}")
-                write_deltalake(deltaPath, table, mode=args.mode, partition_by=args.partition_by)
-                print(table)
+    singleTable = pd.DataFrame(tableDicts)
+    for colName, values in singleTable.items():
+        if colName != "STATUS" and colName != "HASH" and colName != "RAW":
+            deltaPath = Path(fr"{args.location}/{colName}")
+            table_to_write = pandas.concat(list(values))
+            write_deltalake(deltaPath, table_to_write, mode=args.mode, partition_by=args.partition_by)
+            print(table_to_write)
